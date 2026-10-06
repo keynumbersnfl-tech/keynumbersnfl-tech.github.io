@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="it"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>Come si legge il report NFL</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>How to read the report</title>
 <style>
 body{font-family:-apple-system,Helvetica,Arial,sans-serif;background:#fff;color:#111;margin:0;padding:12px 18px;font-size:16px;line-height:1.5;max-width:46em}
 h1{font-size:22px;margin:10px 0 4px} h2{font-size:18px;margin:26px 0 6px;padding-top:10px;border-top:1px solid #ddd}
@@ -7,127 +7,120 @@ p{margin:8px 0}
 .oss{border-left:4px solid #888;background:#f1f1f1;padding:8px 12px;border-radius:4px;margin:8px 0}
 .mod{border-left:4px solid #1a73e8;background:#e8f0fe;padding:8px 12px;border-radius:4px;margin:8px 0}
 .ctl{border-left:4px solid #f57c00;background:#fff3e0;padding:8px 12px;border-radius:4px;margin:8px 0}
-.att{border-left:4px solid #b00020;background:#fdecea;padding:8px 12px;border-radius:4px;margin:14px 0}
 table{border-collapse:collapse;width:100%;font-size:15px;margin:10px 0}
 td,th{border-bottom:1px solid #d6d6d6;padding:7px 8px;text-align:left;vertical-align:top}
 th{font-weight:600;font-size:14px} td:first-child{font-weight:600;width:34%}
 .nota{font-size:13px;color:#555}
 </style></head><body>
 
-<h1>Come si legge il report</h1>
+<h1>How to read the report</h1>
 
-<h2>La struttura</h2>
-<p>Ogni partita ha tre blocchi, riconoscibili dal colore. La divisione serve a tenere separato il dato
-grezzo da quello che ci facciamo sopra.</p>
-<div class="oss"><b>Grigio · Dati osservati.</b> Numeri contati e basta: record, punti, statistiche di
-gioco, precedenti, quote, meteo previsto.</div>
-<div class="mod"><b>Blu · Stime.</b> Probabilità calcolate a partire dalla linea di mercato. Qui c'è
-del calcolo, e va preso per quello che è.</div>
-<div class="ctl"><b>Arancione · Controllo storico.</b> Partite del passato in situazioni simili, con il
-conteggio di come sono finite davvero.</div>
+<h2>The structure</h2>
+<p>Every game has three blocks, told apart by colour. The split keeps raw data separate from anything
+done to it.</p>
+<div class="oss"><b>Grey &middot; Observed data.</b> Counted and nothing else: record, points, play
+statistics, head to head, odds, forecast.</div>
+<div class="mod"><b>Blue &middot; Estimates.</b> Probabilities worked out from the market line. There is
+arithmetic here, and it should be read as an estimate.</div>
+<div class="ctl"><b>Orange &middot; Historical check.</b> Games from past seasons in similar spots, and how
+often each result actually came up.</div>
 
-<h2>Le statistiche di squadra</h2>
-<p>Ogni voce ha due colonne, la stagione in corso e quella scorsa, con il numero di partite su cui si
-basa ciascuna. A inizio stagione la colonna di sinistra oscilla molto: va letta insieme a quella di
-destra e al riferimento di lega riportato sotto la tabella.</p>
+<h2>Team statistics</h2>
+<p>Each row has two columns, the current season and the one before, with the number of games behind
+each. Early in the year the left column swings hard: read it next to the right one and next to the
+league averages printed under the table.</p>
 <table>
-<tr><th>Dato</th><th>Cosa dice</th></tr>
-<tr><td>Record e punti a partita</td><td>Vittorie e sconfitte, punti fatti e subiti in media. I punti
-sono su tutte le partite giocate, comprese quelle di cui non è ancora uscito il dettaglio delle
-azioni: per questo il conteggio può differire di una partita dalle righe sotto.</td></tr>
-<tr><td>Azioni di attacco a partita</td><td>Quante corse e passaggi fa la squadra. Media di lega circa
-60. È ritmo, non qualità: chi ne fa di più tende a produrre partite con più punti.</td></tr>
-<tr><td>Possessi a partita</td><td>Quanti drive ha l'attacco. Media di lega circa 11. Si alternano tra
-le due squadre, quindi nella stessa partita i numeri sono vicini. Un valore basso significa possessi
-lunghi, propri o dell'avversario.</td></tr>
-<tr><td>Passaggi sul totale delle azioni</td><td>Media di lega circa il 57%. Dice quanto il gioco di
-una squadra passa dall'aria, utile per valutare l'effetto delle condizioni di campo.</td></tr>
-<tr><td>EPA per azione, attacco</td><td>Quanto ogni singola azione migliora i punti attesi della
-squadra, tenendo conto della situazione: 3 yard al terzo tentativo quando ne servono 2 valgono molto
-di più delle stesse 3 yard quando ne servono 10. Positivo è buono.</td></tr>
-<tr><td>EPA per azione concesso, difesa</td><td>Lo stesso dal lato opposto. Qui <b>negativo è
-buono</b>: significa che la difesa concede meno punti attesi di quanto farebbe una difesa
-media.</td></tr>
-<tr><td>Punti per possesso</td><td>Media di lega circa 2,1. Conta solo touchdown e field goal
-dell'attacco. Va letto insieme ai possessi: una squadra può segnare molto per possesso e averne
-pochi, o il contrario.</td></tr>
-<tr><td>Quota punti da touchdown</td><td>Quanta parte del punteggio arriva da touchdown invece che da
-field goal.</td></tr>
-<tr><td>Attacco e difesa, forza corretta</td><td>Vedi sotto.</td></tr>
-<tr><td>Ha coperto lo spread / Over nelle sue partite</td><td>Quante volte nella stagione in corso.
-Sono in fondo di proposito: con poche partite questi due numeri sono quasi soltanto caso, e
-storicamente non dicono nulla su come andranno le prossime.</td></tr>
+<tr><th>Stat</th><th>What it tells you</th></tr>
+<tr><td>Record, points per game</td><td>Wins and losses, points scored and allowed. Points cover every
+game played, including ones whose play-by-play has not posted yet, so the game count can differ by one
+from the rows below.</td></tr>
+<tr><td>Offensive plays per game</td><td>Runs and passes. League average around 60. This is tempo, not
+quality: more plays tends to mean more scoring.</td></tr>
+<tr><td>Drives per game</td><td>How many possessions the offense gets. League average around 11. Drives
+alternate, so the two teams in a game end up close. A low number means long drives &mdash; theirs or the
+opponent's.</td></tr>
+<tr><td>Share of plays that are passes</td><td>League average around 57%. Shows how much of a team's
+offense travels through the air, which matters for how conditions affect them.</td></tr>
+<tr><td>EPA per play, offense</td><td>How much each play improves the team's expected points, given the
+situation: 3 yards on third-and-2 is worth far more than 3 yards on third-and-10. Positive is
+good.</td></tr>
+<tr><td>EPA per play allowed, defense</td><td>The same from the other side. Here <b>negative is
+good</b>: the defense is giving up fewer expected points than an average one would.</td></tr>
+<tr><td>Points per drive</td><td>League average around 2.1. Counts offensive touchdowns and field goals
+only. Read it with drives per game: a team can score heavily per drive and get few of them, or the
+reverse.</td></tr>
+<tr><td>Share of points from touchdowns</td><td>How much of the scoring comes from touchdowns rather
+than field goals.</td></tr>
+<tr><td>Offense and defense, adjusted</td><td>See below.</td></tr>
+<tr><td>Covered the spread / Over in their games</td><td>How often this season. They sit at the bottom
+on purpose: over this few games they are close to pure noise, and historically they say nothing about
+how the next ones will go.</td></tr>
 </table>
-<p class="nota">Tra parentesi, accanto all'EPA e alla forza corretta, c'è la posizione su 32
-squadre.</p>
+<p class="nota">The number in brackets next to EPA and the adjusted figures is the rank out of 32.</p>
 
-<h2>Al netto degli avversari affrontati</h2>
-<p>L'EPA grezzo dice quanto bene una squadra ha giocato, non contro chi. Con quattro o cinque partite
-all'attivo la differenza è grossa: un attacco che ha incontrato quattro difese deboli sembra molto
-meglio di quello che è.</p>
-<p>Questa riga corregge il problema. È una stima della forza reale di attacco e difesa, ottenuta
-valutando tutte le squadre insieme sulle ultime quattro stagioni: ognuna viene pesata per quanto
-erano forti gli avversari affrontati, le partite recenti contano più di quelle vecchie, e chi ha
-giocato poco viene avvicinato alla media invece di essere preso in parola.</p>
-<p>Il numero è lo scostamento dalla media di lega in EPA per azione, quindi zero significa squadra
-nella norma, e anche qui per la difesa negativo è buono. I valori sono molto più compressi dell'EPA
-grezzo, ed è voluto: riflettono quanto poco si sa davvero di una stagione appena iniziata.
-<b>Quando questo numero e l'EPA grezzo raccontano storie diverse, la differenza è il
-calendario.</b></p>
-<p class="nota">Il peso dato alle partite recenti non è scelto a occhio: abbiamo confrontato diverse
-velocità su vent'anni di partite e tenuto quella che prevedeva meglio i risultati futuri. Viene più
-lenta di quanto suggerisca l'istinto.</p>
+<h2>Adjusted for opponents faced</h2>
+<p>Raw EPA says how well a team has played, not who against. Four or five games in, that gap is wide:
+an offense that has drawn four weak defenses looks far better than it is.</p>
+<p>This row corrects for it. It is an estimate of real offensive and defensive strength, produced by
+rating every team together across the last four seasons: each one is weighed for how strong its
+opponents were, recent games count more than old ones, and teams with little evidence are pulled
+toward the average rather than taken at face value.</p>
+<p>The figure is the deviation from league average in EPA per play, so zero means an average team, and
+again, for defense negative is good. The values are much tighter than raw EPA, and that is deliberate:
+they reflect how little is really known a few weeks into a season. <b>When this number and the raw EPA
+tell different stories, the gap is schedule.</b></p>
+<p class="nota">How fast recent games are weighted is not a guess: several decay rates were tested
+against twenty years of games, and the one that predicted future results best was kept. It came out
+slower than instinct suggests.</p>
 
-<h2>Le quote</h2>
+<h2>The odds</h2>
 <table>
-<tr><th>Dato</th><th>Cosa dice</th></tr>
-<tr><td>Quota</td><td>In formato decimale. La vincita totale per ogni euro giocato, posta
-compresa.</td></tr>
-<tr><td>Probabilità implicita</td><td>Uno diviso la quota. È la probabilità che quella quota sembra
-esprimere, ma è gonfiata: sommando i due esiti non viene 100%.</td></tr>
-<tr><td>Probabilità senza margine</td><td>La stessa cifra ripulita dal guadagno del bookmaker. È la
-stima che il mercato sta davvero esprimendo, ed è quella da usare per confrontarsi con le proprie
-idee.</td></tr>
-<tr><td>Margine book</td><td>Di quanto la somma dei due esiti supera il 100%. Nella NFL vale
-tipicamente dal 2% al 5%: più è basso, più il prezzo è competitivo.</td></tr>
+<tr><th>Column</th><th>What it tells you</th></tr>
+<tr><td>Odds</td><td>In decimal format. Total return per unit staked, stake included.</td></tr>
+<tr><td>Implied</td><td>One divided by the odds. The probability those odds appear to express &mdash;
+but inflated: the two sides add up to more than 100%.</td></tr>
+<tr><td>No-vig</td><td>The same figure with the book's cut stripped out. This is the estimate the market
+is actually making, and the one to compare your own view against.</td></tr>
+<tr><td>Hold</td><td>How far past 100% the two sides add up. In the NFL it usually runs 2% to 5%: the
+lower it is, the sharper the price.</td></tr>
 </table>
 
-<h2>Le stime (blocco blu)</h2>
-<p>Le probabilità di vittoria, di copertura dello spread e di push non vengono da un modello nostro:
-sono ricavate dalla linea di mercato. Il metodo è prendere tutte le partite del passato con una linea
-vicina a quella odierna e guardare come sono finite davvero, invece di usare una curva teorica.</p>
-<p>La differenza non è un dettaglio. I punti arrivano quasi solo in blocchi da 3 e da 7, quindi i
-margini si ammassano proprio su quei numeri: nella regular season dal 1999 al 2025 lo scarto finale è
-stato esattamente di 3 punti in <b>1.049 partite su 6.999</b> e di 7 punti in 637, contro le 288 di
-scarto 2 e le 265 di scarto 8. Con la linea a 3 il push arriva circa una volta su dieci, con la linea
-a 3,5 è impossibile. Per questo il report riporta a parte la probabilità che il favorito vinca
-<i>esattamente</i> dei punti a cavallo della linea: dice quanto vale quel mezzo punto.</p>
-<p>Accanto alla probabilità di vittoria ricavata dallo spread c'è quella ricavata dalla moneyline.
-Normalmente coincidono quasi; se divergono, i due mercati non stanno dicendo la stessa cosa.</p>
+<h2>The estimates (blue block)</h2>
+<p>The win, cover and push probabilities do not come from a model of ours. They are derived from the
+market line, by taking every past game with a line close to today's and looking at how they finished,
+rather than assuming a smooth curve.</p>
+<p>That distinction is not cosmetic. Points arrive almost entirely in blocks of 3 and 7, so final
+margins pile up on those numbers: across regular season games from 1999 to 2025 the margin was exactly
+3 in <b>1,049 of 6,999 games</b> and exactly 7 in 637, against 288 for a margin of 2 and 265 for a
+margin of 8. At a line of 3 a push lands roughly once in ten games; at 3.5 it cannot happen at all.
+That is why the report also prints the chance the favorite wins by <i>exactly</i> the margins sitting
+either side of the line: it shows what that half point is worth.</p>
+<p>Next to the win probability from the spread sits the one from the moneyline. They normally land
+within a point or two of each other. When they drift apart, the two markets are not saying the same
+thing.</p>
 
-<h2>Il meteo</h2>
-<p>Il report riporta vento, temperatura e probabilità di pioggia previsti all'ora del kickoff, per gli
-stadi all'aperto. Per quelli con tetto retrattile la previsione c'è comunque, ma la decisione di
-aprire o chiudere si prende il giorno della partita.</p>
-<p>Il vento è scritto con una forbice: <i>14 mph, cioè verosimilmente tra 11 e 17 (previsione a 3
-giorni dal kickoff, scarto tipico ±3,2)</i>. Non è un abbellimento. Abbiamo misurato sugli stadi NFL
-quanto cambia una previsione di vento avvicinandosi alla partita: a 3 giorni lo scarto tipico è di
-circa 3 mph, a 1 giorno scende a 2,4, a 7 giorni sale a 4,4. Più la forbice è larga, meno il numero è
-utilizzabile.</p>
-<p class="nota">Quella forbice misura quanto cambia idea il modello meteo avvicinandosi alla partita,
-non quanto sbaglia rispetto a quello che accadrà davvero: l'incertezza vera è un po' più grande.</p>
-<p>L'aggiornamento della domenica mattina contiene le previsioni definitive. Serve: a 3 giorni di
-distanza, delle partite che sembrano ventose poco più della metà lo è ancora al kickoff.</p>
+<h2>The forecast</h2>
+<p>The report carries wind, temperature and chance of rain at kickoff for outdoor stadiums. Venues with
+a retractable roof still get a forecast, but whether the roof is open is decided on game day.</p>
+<p>Wind comes with a range: <i>14 mph, so realistically between 11 and 17 (forecast made 3 days out,
+typical error &plusmn;3.2)</i>. That range is measured, not decorative. Across NFL stadiums we checked
+how much a wind forecast shifts as kickoff approaches: three days out the typical swing is about 3 mph,
+one day out it drops to 2.4, seven days out it climbs to 4.4. The wider the range, the less the number
+can carry.</p>
+<p class="nota">That range measures how much the weather model changes its mind on the way to kickoff,
+not how far it lands from what actually blows. The true uncertainty is somewhat larger.</p>
+<p>The game day update carries the final forecasts, and it matters: three days out, barely more than
+half the games that look windy still are at kickoff.</p>
 
-<h2>Il controllo storico (blocco arancione)</h2>
-<p>Le frequenze sono sempre scritte come <b>"X su N"</b>, non solo in percentuale. È voluto: "6 su 10"
-e "600 su 1.000" sono la stessa percentuale ma non la stessa informazione. Il primo può cambiare
-completamente con una partita in più, il secondo no.</p>
-<p>Quando il report dice <i>partite con linea simile</i> intende partite del passato in cui il mercato
-aveva messo una linea vicina a quella di oggi, e conta come sono finite. È il modo più diretto di
-rispondere alla domanda: quando il mercato diceva così, cosa è successo davvero?</p>
+<h2>The historical check (orange block)</h2>
+<p>Frequencies are always written as <b>"X of N"</b>, not just as a percentage. That is deliberate: "6
+of 10" and "600 of 1,000" are the same percentage but not the same information. The first can flip with
+one more game; the second cannot.</p>
+<p>Where the report says <i>games with a similar line</i>, it means past games where the market set a
+number close to today's, counted by how they finished. It is the most direct answer to the question:
+when the market said this, what actually happened?</p>
 
-<p class="nota">Fonti: nflverse per risultati, statistiche di gioco e quote; Open-Meteo per le
-previsioni meteo. Orari sempre in ora italiana.</p>
+<p class="nota">Sources: nflverse for results, play statistics and odds; Open-Meteo for forecasts.
+All times Eastern.</p>
 
 </body></html>
