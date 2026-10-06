@@ -17,9 +17,11 @@ tipo = sys.argv[1] if len(sys.argv) > 1 else "report"
 if tipo not in ("report", "update", "recap"):
     print("Uso: python annuncia.py report | update | recap"); sys.exit(1)
 
-cartelle = sorted(glob.glob(os.path.join(percorsi.DOCS, "w[0-9][0-9]")))
+MODELLO = {"report": "report.html", "update": "update-*.html", "recap": "recap.html"}
+cartelle = [c for c in sorted(glob.glob(os.path.join(percorsi.DOCS, "w[0-9][0-9]")))
+            if glob.glob(os.path.join(c, MODELLO[tipo]))]
 if not cartelle:
-    print("Nessuna week trovata."); sys.exit(1)
+    print(f"Nessuna week con {MODELLO[tipo]}."); sys.exit(1)
 wk = int(os.path.basename(cartelle[-1])[1:])
 url = f"{BASE}/w{wk:02d}/"
 
