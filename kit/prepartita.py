@@ -1,6 +1,7 @@
 """Game day update: today's games only, in Eastern Time.
 Latest forecast, current lines with the move since the report, injury report.
 Run on each day games are played: Thursday, Sunday, Monday."""
+import percorsi  # ancora i percorsi alla radice del progetto
 import glob
 import html
 import os
@@ -35,8 +36,9 @@ print(f"{len(g)} game(s) today, week {week}")
 
 foto = sorted(glob.glob(f"data/snapshot/{STAGIONE}_w{week:02d}_*.parquet"))
 base = pd.read_parquet(foto[0]).set_index("game_id") if foto else None
-quando_base = (pd.Timestamp(base.fotografia.iloc[0]).tz_localize("Europe/Rome")
-               .tz_convert("America/New_York")) if base is not None else None
+_f = pd.Timestamp(base.fotografia.iloc[0]) if base is not None else None
+quando_base = (None if _f is None else
+               (_f.tz_localize("UTC") if _f.tzinfo is None else _f).tz_convert("America/New_York"))
 
 cache = {}
 def meteo(team, kick_naive):
@@ -177,16 +179,11 @@ pagina = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <style>{CSS}</style></head><body>
 <h1>Game day &middot; {DAYS[adesso.weekday()]} {oggi:%b %d} &middot; Week {week}</h1>
 <p class="nota">Updated {adesso:%I:%M %p} ET. Today's games only. {cambiato}
-<a href="../GUIDA.html">How to read this</a></p>
+<a href="/guide.html">How to read this</a></p>
 {''.join(sezioni)}
 </body></html>"""
 
-cartella = os.path.join(ICLOUD, f"{STAGIONE}_W{week:02d}")
-os.makedirs(cartella, exist_ok=True)
-os.makedirs("report", exist_ok=True)
-nome = f"PREPARTITA_{oggi:%Y%m%d}.html"
-for d in [os.path.join(cartella, nome), os.path.join("report", nome)]:
-    with open(d, "w", encoding="utf-8") as f:
-        f.write(pagina)
-print("Saved to:", os.path.join(cartella, nome))
-print("Local copy: report/" + nome)
+dest = os.path.join(percorsi.settimana_dir(week), f"update-{oggi:%Y%m%d}.html")
+with open(dest, "w", encoding="utf-8") as f:
+    f.write(pagina)
+print("Saved to:", dest)

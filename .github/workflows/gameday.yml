@@ -1,0 +1,39 @@
+name: Game day update
+on:
+  schedule:
+    - cron: "0 21 * * 1,4"
+    - cron: "0 13 * * 0"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: kit/requirements.txt
+      - run: pip install -r kit/requirements.txt
+      - id: build
+        run: python kit/prepartita.py | tee /tmp/out.txt
+      - name: Stop if no games today
+        run: grep -q "No games today" /tmp/out.txt && echo "SKIP=1" >> $GITHUB_ENV || true
+      - if: env.SKIP != '1'
+        run: python kit/sito.py
+      - if: env.SKIP != '1'
+        name: Publish
+        run: |
+          git config user.name "Key Numbers"
+          git config user.email "338461203+keynumbersnfl-tech@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Game day update $(date -u +%F)"
+          git push
+      - if: env.SKIP != '1'
+        name: Announce
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CANALE: ${{ secrets.TELEGRAM_CANALE }}
+        run: python kit/annuncia.py update

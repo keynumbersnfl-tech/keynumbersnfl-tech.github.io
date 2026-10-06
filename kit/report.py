@@ -1,5 +1,6 @@
 """Weekly report. Part 1 observed data (grey), Part 2 estimates from the line (blue),
 Part 3 historical check (orange). Runs on the latest snapshot from settimana.py."""
+import percorsi  # ancora i percorsi alla radice del progetto
 import glob
 import html
 import math
@@ -25,7 +26,8 @@ if not foto:
     print("No snapshot found: run settimana.py first"); sys.exit(1)
 w = pd.read_parquet(foto[-1])
 week = int(w.week.iloc[0])
-quando = pd.Timestamp(w.fotografia.iloc[0]).tz_localize("Europe/Rome").tz_convert("America/New_York")
+_f = pd.Timestamp(w.fotografia.iloc[0])
+quando = (_f.tz_localize("UTC") if _f.tzinfo is None else _f).tz_convert("America/New_York")
 w["kick"] = pd.to_datetime(w.kick_et).dt.tz_localize("America/New_York")
 w = w.sort_values("kick_et").reset_index(drop=True)
 
@@ -360,16 +362,11 @@ kickoff &mdash; the game day update carries the final numbers.</p>
 market line. <b>Orange</b> = similar games from past seasons, and how often each result actually came up.</p>
 {''.join(sezioni)}
 <p class="nota" style="margin-top:18px">New to these numbers?
-<a href="../GUIDA.html">How to read the report</a></p>
+<a href="/guide.html">How to read the report</a></p>
 </body></html>"""
 
-cartella = os.path.join(ICLOUD, f"{STAGIONE}_W{week:02d}")
-os.makedirs(cartella, exist_ok=True)
-os.makedirs("report", exist_ok=True)
-nome_file = f"NFL_{STAGIONE}_W{week:02d}.html"
-for dest in [os.path.join(cartella, nome_file), os.path.join("report", nome_file)]:
-    with open(dest, "w", encoding="utf-8") as f:
-        f.write(pagina)
+dest = os.path.join(percorsi.settimana_dir(week), "report.html")
+with open(dest, "w", encoding="utf-8") as f:
+    f.write(pagina)
 print(f"Report week {week}: {len(sezioni)} games")
-print("Saved to:", os.path.join(cartella, nome_file))
-print("Local copy: report/" + nome_file)
+print("Saved to:", dest)

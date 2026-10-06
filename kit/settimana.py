@@ -1,5 +1,6 @@
 """Fotografia della week in corso: linee di quel momento + meteo previsto. Salvata con data e ora.
 Da lanciare piu' volte in settimana (es. mercoledi', sabato, domenica mattina)."""
+import percorsi  # ancora i percorsi alla radice del progetto
 import sys
 from datetime import datetime
 import numpy as np
@@ -19,6 +20,7 @@ def dec_am(ml):
     return 1 + ml / 100 if ml > 0 else 1 + 100 / abs(ml)
 
 adesso = datetime.now()
+adesso_utc = pd.Timestamp.now(tz="UTC")
 sch = nfl.load_schedules([STAGIONE]).to_pandas()
 reg = sch[sch.game_type == "REG"].copy()
 reg["kick"] = pd.to_datetime(reg.gameday + " " + reg.gametime)
@@ -111,5 +113,5 @@ for _, r in w.iterrows():
     print(f"{'':>17}{meteo_txt}{flag}")
 
 nome = f"data/snapshot/{STAGIONE}_w{week:02d}_{adesso:%Y%m%d_%H%M}.parquet"
-w.assign(fotografia=adesso).drop(columns=["kick_it"]).to_parquet(nome)
+w.assign(fotografia=adesso_utc).drop(columns=["kick_it"]).to_parquet(nome)
 print(f"\nFotografia salvata: {nome}")

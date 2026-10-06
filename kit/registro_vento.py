@@ -3,6 +3,7 @@ Regola fissata in NOTE_DATI.md il 22/09/2026: partita all'aperto, non su campo n
 vento medio previsto nelle 3 ore dal kickoff >= 11 mph -> UNDER sul totale di chiusura.
 Il file e' a sola aggiunta: la previsione e' congelata alla prima scrittura,
 una riga di partita conclusa non viene piu' modificata."""
+import percorsi  # ancora i percorsi alla radice del progetto
 import glob
 import math
 import os

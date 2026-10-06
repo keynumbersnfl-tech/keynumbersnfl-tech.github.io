@@ -1,4 +1,5 @@
 """Reader's guide. Written once; re-run only if the text changes."""
+import percorsi  # ancora i percorsi alla radice del progetto
 import os
 
 ICLOUD = os.path.expanduser("~/Library/Mobile Documents/com~apple~CloudDocs/Report Football")
@@ -131,9 +132,7 @@ All times Eastern.</p>
 
 </body></html>"""
 
-os.makedirs(ICLOUD, exist_ok=True)
-os.makedirs("report", exist_ok=True)
-for d in [os.path.join(ICLOUD, "GUIDA.html"), "report/GUIDA.html"]:
-    with open(d, "w", encoding="utf-8") as f:
-        f.write(HTML)
-print("Guide saved:", os.path.join(ICLOUD, "GUIDA.html"))
+dest = os.path.join(percorsi.DOCS, "guide.html")
+with open(dest, "w", encoding="utf-8") as f:
+    f.write(HTML)
+print("Guide saved:", dest)

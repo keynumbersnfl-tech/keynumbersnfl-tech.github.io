@@ -1,6 +1,7 @@
 """Rating di attacco e difesa corretti per la forza degli avversari.
 Stessi parametri validati in backtest_m2.py: emivita 12 settimane, ridge 300, tutte le azioni,
 finestra di 4 stagioni. Il valore e' lo scostamento dalla media di lega, in EPA per azione."""
+import percorsi  # ancora i percorsi alla radice del progetto
 import numpy as np
 import pandas as pd
 import polars as pl

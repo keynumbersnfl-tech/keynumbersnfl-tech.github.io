@@ -2,6 +2,7 @@
 Uso:  python annuncia.py report | update | recap
 Lanciare dopo pubblica.py."""
 import glob
+import percorsi
 import json
 import os
 import re
@@ -16,10 +17,10 @@ tipo = sys.argv[1] if len(sys.argv) > 1 else "report"
 if tipo not in ("report", "update", "recap"):
     print("Uso: python annuncia.py report | update | recap"); sys.exit(1)
 
-cartelle = sorted(glob.glob(os.path.join(ICLOUD, "20*_W*")))
+cartelle = sorted(glob.glob(os.path.join(percorsi.DOCS, "w[0-9][0-9]")))
 if not cartelle:
     print("Nessuna week trovata."); sys.exit(1)
-wk = int(re.search(r"_W(\d{2})$", cartelle[-1]).group(1))
+wk = int(os.path.basename(cartelle[-1])[1:])
 url = f"{BASE}/w{wk:02d}/"
 
 TESTI = {
@@ -37,7 +38,8 @@ TESTI = {
         "What the numbers said, what actually happened, and where they missed."),
 }
 
-c = json.load(open(CONF))
+c = ({"token": os.environ["TELEGRAM_TOKEN"], "canale": os.environ["TELEGRAM_CANALE"]}
+     if os.environ.get("TELEGRAM_TOKEN") else json.load(open(CONF)))
 api = f"https://api.telegram.org/bot{c['token']}"
 r = requests.post(f"{api}/sendMessage", timeout=20, json={
     "chat_id": c["canale"],
