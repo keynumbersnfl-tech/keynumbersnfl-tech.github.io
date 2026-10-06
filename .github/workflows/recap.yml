@@ -19,7 +19,7 @@ jobs:
       - id: build
         run: python kit/consuntivo.py | tee /tmp/out.txt
       - name: Stop if nothing to recap
-        run: grep -qE "No completed week|is not finished yet|No snapshot" /tmp/out.txt && echo "SKIP=1" >> $GITHUB_ENV || true
+        run: grep -qE "No completed week|is not finished yet|No snapshot|already published" /tmp/out.txt && echo "SKIP=1" >> $GITHUB_ENV || true
       - if: env.SKIP != '1'
         run: python kit/sito.py
       - if: env.SKIP != '1'

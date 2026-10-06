@@ -48,6 +48,11 @@ if fin.result.isna().any():
     print(f"Week {week} is not finished yet "
           f"({int(fin.result.notna().sum())}/{len(fin)} final)."); sys.exit(0)
 
+gia = os.path.join(percorsi.DOCS, f"w{week:02d}", "recap.html")
+if os.path.exists(gia) and "--forza" not in sys.argv:
+    print(f"Recap for week {week} already published. Nothing to do.")
+    sys.exit(0)
+
 pub = pd.read_parquet(foto)[["game_id", "spread_line", "total_line", "vento_prev"]]
 d = (fin[["game_id", "week", "gameday", "home_team", "away_team",
           "home_score", "away_score", "roof", "location"]]
