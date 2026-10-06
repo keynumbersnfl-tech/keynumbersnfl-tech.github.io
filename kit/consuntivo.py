@@ -127,12 +127,11 @@ for r in d.itertuples():
     soffio = f" <span class='vent'>&middot; {r.vento_prev:.0f} mph</span>" if r.vento_reg else ""
     righe.append([f"{DAYS[g.weekday()]} {g.month}/{g.day}",
                   f"{e(r.away_team)} {int(r.away_score)} @ {e(r.home_team)} {int(r.home_score)}{soffio}",
-                  linea_txt(r),
-                  E_ATS.get(r.ats, "&mdash;"),
-                  f"{r.total_line:g}" if pd.notna(r.total_line) else "&mdash;",
-                  f"{int(r.punti)} &middot; {E_OU.get(r.ou, '&mdash;')}"])
+                  f"{linea_txt(r)} &rarr; {E_ATS.get(r.ats, '&mdash;')}",
+                  (f"{r.total_line:g} &rarr; {int(r.punti)} {E_OU.get(r.ou, '')}"
+                   if pd.notna(r.total_line) else f"&mdash; &rarr; {int(r.punti)}")])
 
-p1 = tabella(["Date", "Final", "Published spread", "Covered", "Published O/U", "Points"], righe)
+p1 = tabella(["Date", "Final", "Spread", "Total"], righe)
 
 p2 = tabella(["", f"Week {week}", "Season to date"],
              [["Favorite covered the spread", c["fav"], st["fav"]],
