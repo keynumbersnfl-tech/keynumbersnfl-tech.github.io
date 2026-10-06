@@ -97,7 +97,10 @@ for f in sorted(glob.glob(f"data/snapshot/{STAGIONE}_w*.parquet")):
     d = pd.read_parquet(f)
     for _, r in d.iterrows():
         if pd.notna(r.get("vento_prev")):
-            foto.setdefault(r.game_id, []).append((pd.Timestamp(r.fotografia), r.vento_prev))
+            t = pd.Timestamp(r.fotografia)
+            t = (t.tz_localize("Europe/Rome") if t.tzinfo is None else t)
+            foto.setdefault(r.game_id, []).append((t.tz_convert("America/New_York").tz_localize(None),
+                                                   r.vento_prev))
 
 # ------------------------------------------------------------ costruzione righe
 righe, nuove, aggiornate = [], 0, 0
