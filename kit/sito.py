@@ -62,8 +62,9 @@ for cart in sorted(glob.glob(os.path.join(percorsi.DOCS, "w[0-9][0-9]"))):
     corpo = (f'<a class="back" href="/">&larr; Key Numbers</a>'
              f'<h1>Week {wk}</h1><p>2026 season</p>'
              f'<h2>This week</h2><ul>{righe}</ul>'
-             f'<p class="nota">New to these numbers? '
-             f'<a href="/guide.html" style="color:#F5A623">How to read the report</a></p>')
+             f'<h2>Start here</h2><ul>'
+             f'<li><a href="/guide.html"><span>How to read the report</span>'
+             f'<span class="quando">guide</span></a></li></ul>')
     with open(os.path.join(cart, "index.html"), "w", encoding="utf-8") as f:
         f.write(pagina(f"Week {wk} · Key Numbers", corpo))
     settimane.append((wk, len(voci)))
@@ -75,8 +76,10 @@ for wk, n in sorted(settimane, reverse=True):
               f'<span class="quando">{n} document{"s" if n > 1 else ""}</span></a></li>')
 corpo = ('<h1>Key Numbers</h1><p>NFL matchup data, week by week.</p>'
          f'<h2>Reports</h2><ul>{righe or "<li><a>Coming soon</a></li>"}</ul>'
-         '<p class="nota"><a href="/guide.html" style="color:#F5A623">How to read the report</a>'
-         ' &middot; Not betting advice. Just counts.</p>')
+         '<h2>Start here</h2><ul>'
+         '<li><a href="/guide.html"><span>How to read the report</span>'
+         '<span class="quando">guide</span></a></li></ul>'
+         '<p class="nota">Not betting advice. Just counts.</p>')
 with open(os.path.join(percorsi.DOCS, "index.html"), "w", encoding="utf-8") as f:
     f.write(pagina("Key Numbers · NFL", corpo))
 print("Index pages rebuilt.")
