@@ -68,9 +68,9 @@ game_id,season,week,gameday,kickoff_et,away,home,stadium,roof,neutral,vento_prev
 2026_06_LAC_KC,2026,6,2026-10-18,2026-10-18 16:25:00,LAC,KC,GEHA Field at Arrowhead Stadium,outdoors,False,7.9,live,299.5,,,,,,False,in attesa,,2026-10-04 21:30
 2026_06_DAL_GB,2026,6,2026-10-18,2026-10-18 20:20:00,DAL,GB,Lambeau Field,outdoors,False,8.0,live,303.4,,,,,,False,in attesa,,2026-10-04 21:30
 2026_06_WAS_SF,2026,6,2026-10-19,2026-10-19 20:15:00,WAS,SF,Levi's Stadium,outdoors,False,6.8,live,327.4,,,,,,False,in attesa,,2026-10-04 21:30
-2026_07_NE_CHI,2026,7,2026-10-22,2026-10-22 20:15:00,NE,CHI,Soldier Field,outdoors,False,,live,399.4,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
+2026_07_NE_CHI,2026,7,2026-10-22,2026-10-22 20:15:00,NE,CHI,Soldier Field,outdoors,False,,n.d.,,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
 2026_07_SF_ATL,2026,7,2026-10-25,2026-10-25 13:00:00,SF,ATL,Mercedes-Benz Stadium,,False,,live,464.1,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
-2026_07_CIN_BAL,2026,7,2026-10-25,2026-10-25 13:00:00,CIN,BAL,M&T Bank Stadium,outdoors,False,,live,464.1,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
+2026_07_CIN_BAL,2026,7,2026-10-25,2026-10-25 13:00:00,CIN,BAL,M&T Bank Stadium,outdoors,False,,n.d.,,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
 2026_07_TB_CAR,2026,7,2026-10-25,2026-10-25 13:00:00,TB,CAR,Bank of America Stadium,outdoors,False,,live,464.1,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
 2026_07_NYG_HOU,2026,7,2026-10-25,2026-10-25 13:00:00,NYG,HOU,Reliant Stadium,,False,,live,464.1,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
 2026_07_MIA_NYJ,2026,7,2026-10-25,2026-10-25 13:00:00,MIA,NYJ,MetLife Stadium,outdoors,False,,live,464.1,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
@@ -88,9 +88,9 @@ game_id,season,week,gameday,kickoff_et,away,home,stadium,roof,neutral,vento_prev
 2026_08_IND_JAX,2026,8,2026-11-01,2026-11-01 13:00:00,IND,JAX,EverBank Stadium,outdoors,False,,live,632.1,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
 2026_08_KC_DEN,2026,8,2026-11-01,2026-11-01 16:25:00,KC,DEN,Empower Field at Mile High,outdoors,False,,live,635.5,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
 2026_08_NE_MIA,2026,8,2026-11-01,2026-11-01 16:25:00,NE,MIA,Hard Rock Stadium,outdoors,False,,live,635.5,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
-2026_08_PHI_WAS,2026,8,2026-11-01,2026-11-01 20:20:00,PHI,WAS,Northwest Stadium,outdoors,False,,live,639.4,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
+2026_08_PHI_WAS,2026,8,2026-11-01,2026-11-01 20:20:00,PHI,WAS,Northwest Stadium,outdoors,False,,n.d.,,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
 2026_08_CHI_SEA,2026,8,2026-11-02,2026-11-02 20:15:00,CHI,SEA,Lumen Field,outdoors,False,,live,663.4,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
-2026_09_JAX_BAL,2026,9,2026-11-05,2026-11-05 20:15:00,JAX,BAL,M&T Bank Stadium,outdoors,False,,live,735.4,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
+2026_09_JAX_BAL,2026,9,2026-11-05,2026-11-05 20:15:00,JAX,BAL,M&T Bank Stadium,outdoors,False,,n.d.,,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
 2026_09_CIN_ATL,2026,9,2026-11-08,2026-11-08 09:30:00,CIN,ATL,Bernabeu,,True,,n.d.,,,,,,,False,in attesa,campo neutro: fuori dal conteggio,2026-10-04 21:30
 2026_09_LA_WAS,2026,9,2026-11-08,2026-11-08 13:00:00,LA,WAS,Northwest Stadium,outdoors,False,,live,800.1,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
 2026_09_NYG_PHI,2026,9,2026-11-08,2026-11-08 13:00:00,NYG,PHI,Lincoln Financial Field,outdoors,False,,live,800.1,,,,,,False,in attesa,previsione mancante: non valutabile,2026-10-04 21:30
