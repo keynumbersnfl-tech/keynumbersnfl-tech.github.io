@@ -2,3 +2,5 @@
 __pycache__/
 *.pyc
 data/meteo/
+data/post_partita.txt
+data/post_recap.txt

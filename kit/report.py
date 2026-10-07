@@ -370,3 +370,117 @@ with open(dest, "w", encoding="utf-8") as f:
     f.write(pagina)
 print(f"Report week {week}: {len(sezioni)} games")
 print("Saved to:", dest)
+
+# ------------------------------------------------------------ post Instagram della partita
+def _ordinale(n):
+    n = int(n)
+    if 10 <= n % 100 <= 20:
+        return f"{n}th"
+    return f"{n}{ {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th') }"
+
+def _linea_corta(r):
+    s = r.spread_line
+    if pd.isna(s):
+        return "no line yet"
+    if s > 0:
+        return f"{r.home_team} -{s:g}"
+    if s < 0:
+        return f"{r.away_team} -{-s:g}"
+    return "pick'em"
+
+def _tot(r):
+    return f"{r.total_line:g}" if pd.notna(r.total_line) else "not posted"
+
+try:
+    cond = w.regola_cond if "regola_cond" in w.columns else pd.Series(False, index=w.index)
+    vent = w[w.regola_vento & w.vento_prev.notna()]
+    if vent.empty:
+        vent = w[cond & w.vento_prev.notna()]
+    tre, sette = w[w.spread_line.abs() == 3], w[w.spread_line.abs() == 7]
+
+    if not vent.empty:
+        r = vent.loc[vent.vento_prev.idxmax()]
+        v = r.vento_prev
+        a = vento_prev[((vento_prev.v_prev - v).abs() <= 3) & (vento_prev.res != 0)]
+        vivo = ""
+        _lg = os.path.join(percorsi.DATI, "consuntivo.csv")
+        if os.path.exists(_lg):
+            _L = pd.read_csv(_lg)
+            _v = _L[_L.vento_reg == 1]
+            _o = _v.ou[_v.ou.isin(["over", "under"])]
+            if len(_o):
+                vivo = (f"\n\nOur own count, live, since we wrote the rule down: "
+                        f"{int((_o == 'under').sum())} of {len(_o)} under. "
+                        f"We publish that one whichever way it goes.")
+        corpo = (f"The forecast says {v:.0f} mph, roof open.\n\n"
+                 f"Outdoor games with wind in that range, 2021-2025: "
+                 f"{int((a.res < 0).sum())} of {len(a)} finished under their own total."
+                 f"{vivo}\n\n"
+                 f"The line: {_linea_corta(r)}. The total: {_tot(r)}.")
+    elif not tre.empty or not sette.empty:
+        r = (tre if not tre.empty else sette).iloc[0]
+        L = abs(r.spread_line)
+        x = sim_sp[(sim_sp.spread_line.abs() - L).abs() <= 0.5]
+        fm = np.where(x.spread_line > 0, x.result, -x.result)
+        ph = pmf_casa(B, r.spread_line)
+        corpo = (f"The line is exactly {L:g}, and that is worth more than the half point next to it.\n\n"
+                 f"Games from {ANNI_SIMILI[0]}-{ANNI_SIMILI[1]} with the favorite laying "
+                 f"{max(L - 0.5, 0):g} to {L + 0.5:g} points: the favorite won by exactly {L:g} in "
+                 f"{int((fm == L).sum())} of {len(x)}.\n\n"
+                 f"On {L:g} the game can land there. On {L + 0.5:g} it never can.\n\n"
+                 f"The total: {_tot(r)}.")
+    else:
+        rk = off26.epa.rank(ascending=False, method="min")
+        cand = []
+        for t in set(w.home_team) | set(w.away_team):
+            if t in rk.index and RAT is not None and t in RAT.index:
+                g, b = int(rk[t]), int(RAT.off_rank[t])
+                cand.append((abs(g - b), t, g, b))
+        if not cand:
+            raise RuntimeError("nessun dato per il terzo gancio")
+        cand.sort(reverse=True)
+        gap, t, g, b = cand[0]
+        r = w[(w.home_team == t) | (w.away_team == t)].iloc[0]
+        corpo = (f"{t}'s offense ranks {_ordinale(g)} in raw EPA per play this season.\n"
+                 f"Adjusted for the defenses they have actually faced: {_ordinale(b)}.\n\n"
+                 f"{gap} places. That gap is schedule, not performance, and it is the single thing "
+                 f"most likely to be mispriced in your head when you look at this game.\n\n"
+                 f"The line: {_linea_corta(r)}. The total: {_tot(r)}.")
+
+    k = r.kick
+    orario = f"{DAYS[k.weekday()]} {k.strftime('%I:%M %p').lstrip('0')} ET"
+    titolo = f"{r.away_team} at {r.home_team}"
+
+    testa = (f"POST DELLA PARTITA — WEEK {week}\n\n"
+             f"Messaggio 2 = prompt per ChatGPT.  Messaggio 3 = didascalia per Instagram.\n\n"
+             f"CONTROLLO: sull'immagine deve esserci scritto esattamente\n"
+             f"  {titolo}\n  WEEK {week}\n  @keynumbersnfl")
+
+    prompt = f"""Generate an image. Size 1080x1350, vertical.
+
+A dark, cinematic NFL stadium at dusk under floodlights, heavily darkened and desaturated so it works as a textured background rather than a photograph. Deep charcoal blacks, one warm amber light source low in the frame. No logos, no team names, no recognizable faces, no jersey numbers, no brands.
+
+Centred, in very large bold condensed white sans-serif filling about half the image width:
+
+{titolo}
+
+Directly beneath it, small, uppercase, grey, widely letter-spaced:
+
+WEEK {week}
+
+At the bottom centre, small but clearly readable:
+
+@keynumbersnfl
+
+Generous empty space around the text. Nothing else anywhere on the image. Render the text exactly as written, character for character."""
+
+    didascalia = (f"{titolo}, {orario}.\n\n{corpo}\n\n"
+                  f"The other {len(w) - 1} games of Week {week} are in the full report. "
+                  f"Free, link in bio.")
+
+    dp = os.path.join(percorsi.DATI, "post_partita.txt")
+    with open(dp, "w", encoding="utf-8") as f:
+        f.write(f"{testa}\n@@@\n{prompt}\n@@@\n{didascalia}\n")
+    print("Testo del post partita salvato:", dp)
+except Exception as ex:
+    print("Post partita non generato:", repr(ex))

@@ -34,3 +34,8 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CANALE: ${{ secrets.TELEGRAM_CANALE }}
         run: python kit/annuncia.py report
+      - name: Send post text
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_PRIVATA: ${{ secrets.TELEGRAM_PRIVATA }}
+        run: test -f data/post_partita.txt && python kit/invia_privato.py data/post_partita.txt || echo "nessun post da inviare"
