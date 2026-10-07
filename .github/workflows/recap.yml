@@ -36,3 +36,9 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CANALE: ${{ secrets.TELEGRAM_CANALE }}
         run: python kit/annuncia.py recap
+      - if: env.SKIP != '1'
+        name: Send post text
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_PRIVATA: ${{ secrets.TELEGRAM_PRIVATA }}
+        run: python kit/invia_privato.py data/post_recap.txt

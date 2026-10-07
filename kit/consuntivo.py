@@ -198,3 +198,63 @@ print(f"Recap week {week}: {len(d)} games")
 print(f"  favorite covered: {c['fav']}   over: {c['over']}   home won: {c['casa']}")
 print(f"  windy games under: {c['vento']}")
 print("Saved to:", dest)
+
+# ------------------------------------------------ testo pronto per Instagram
+def grezzi(x):
+    a = x.ats[x.ats.isin(["fav", "dog"])]
+    o = x.ou[x.ou.isin(["over", "under"])]
+    v = x[x.vento_reg == 1]
+    vo = v.ou[v.ou.isin(["over", "under"])]
+    return dict(fav=int((a == "fav").sum()), fav_n=len(a),
+                over=int((o == "over").sum()), over_n=len(o),
+                casa=int((x.margine > 0).sum()), casa_n=len(x),
+                tre=int((x.margine.abs() == 3).sum()),
+                vento=int((vo == "under").sum()), vento_n=len(vo))
+
+g, gs = grezzi(d), grezzi(storico)
+
+testa = (f"POST DEL MARTEDI' — WEEK {week}\n\n"
+         f"Messaggio 2 = prompt per ChatGPT.  Messaggio 3 = didascalia per Instagram.\n\n"
+         f"CONTROLLO: sull'immagine deve esserci scritto esattamente\n"
+         f"  WEEK {week}\n  HOW IT WENT\n  @keynumbersnfl")
+
+prompt = f"""Generate an image. Size 1080x1350, vertical.
+
+A dark, cinematic NFL stadium at dusk under floodlights, heavily darkened and desaturated so it works as a textured background rather than a photograph. Deep charcoal blacks, one warm amber light source low in the frame. No logos, no team names, no recognizable faces, no jersey numbers, no brands.
+
+Centred, in very large bold condensed white sans-serif filling about half the image width:
+
+WEEK {week}
+
+Directly beneath it, small, uppercase, grey, widely letter-spaced:
+
+HOW IT WENT
+
+At the bottom centre, small but clearly readable:
+
+@keynumbersnfl
+
+Generous empty space around the text. Nothing else anywhere on the image. Render the text exactly as written, character for character."""
+
+if g["vento_n"]:
+    riga_vento = (f"Wind rule: {g['vento']} of {g['vento_n']} this week, "
+                  f"{gs['vento']} of {gs['vento_n']} since we wrote it down.")
+else:
+    riga_vento = (f"Wind rule: no game qualified this week. "
+                  f"{gs['vento']} of {gs['vento_n']} since we wrote it down.")
+
+didascalia = f"""Week {week}, counted.
+
+Favorites covered: {g['fav']} of {g['fav_n']}.
+Totals went over: {g['over']} of {g['over_n']}.
+Margins that landed exactly on 3: {g['tre']}.
+Home teams won: {g['casa']} of {g['casa_n']}.
+
+{riga_vento}
+
+Season to date in the full recap. Link in bio."""
+
+dest_post = os.path.join(percorsi.DATI, "post_recap.txt")
+with open(dest_post, "w", encoding="utf-8") as f:
+    f.write(f"{testa}\n@@@\n{prompt}\n@@@\n{didascalia}\n")
+print("Testo del post salvato:", dest_post)
