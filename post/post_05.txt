@@ -1,0 +1,15 @@
+# POST 05 — Il favorito
+
+## 1. IMMAGINE
+Gia' pronta: immagini/post_05_favorito.png
+Generata da kit/grafici_post.py. I numeri vengono dai dati: non serve verificarli.
+
+## 2. DIDASCALIA
+Twenty-four seasons, and the number sits right on the fence.
+
+Totals behave the same way: 3,056 overs out of 6,166.
+
+That is not an accident, it is the whole job of a line. We don't publish numbers to tell you which side to take. We publish them so you can see where a game actually sits before anyone tells you a story about it.
+
+## 3. TRADUZIONE
+Ventiquattro stagioni e il favorito resta esattamente sulla linea. Non e' un caso: e' il mestiere di una linea.

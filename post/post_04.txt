@@ -1,0 +1,15 @@
+# POST 04 — Il buco del 9
+
+## 1. IMMAGINE
+Gia' pronta: immagini/post_04_nove.png
+Generata da kit/grafici_post.py. I numeri vengono dai dati: non serve verificarli.
+
+## 2. DIDASCALIA
+A 10-point margin is a touchdown plus a field goal: the most ordinary scoring sequence in the sport. A 9 needs three field goals, or a touchdown with a missed extra point plus a field goal.
+
+Nothing about football produces a 9 naturally, and the count shows it. The 9 is rarer than the 11 sitting two points above it.
+
+Knowing which numbers are crowded and which are nearly empty is most of the job.
+
+## 3. TRADUZIONE
+Il 10 e' touchdown piu' field goal, la sequenza piu' normale che esista. Per fare 9 serve un percorso strano. Risultato: il 9 e' piu' raro perfino dell'11.

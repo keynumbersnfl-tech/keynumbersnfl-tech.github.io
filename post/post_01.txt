@@ -1,0 +1,43 @@
+# POST 01 — Presentazione
+
+## 1. PROMPT PER CHATGPT
+
+Generate an image. Size 1080x1350, vertical.
+
+A dark, cinematic NFL stadium at dusk under floodlights, heavily darkened and desaturated so it works as a textured background rather than a photograph. Deep charcoal blacks, one warm amber light source low in the frame. No logos, no team names, no recognizable faces, no jersey numbers, no brands.
+
+Centred, in very large bold condensed white sans-serif filling about half the image width:
+
+KEY NUMBERS
+
+Directly beneath it, small, uppercase, grey, widely letter-spaced:
+
+NFL, COUNTED
+
+At the bottom centre, small but clearly readable:
+
+@keynumbersnfl
+
+Generous empty space around the text. Nothing else anywhere on the image. Render the text exactly as written, character for character.
+
+## 2. DIDASCALIA
+
+No picks. No takes. No "lock of the week."
+
+Every week we publish what the numbers actually did: how both teams are playing once you adjust for who they've played, what the forecast says and how wrong forecasts usually are, and how often similar games have ended each way.
+
+Then on Tuesday we publish how it went. Including the parts we got wrong.
+
+Full week reports, free, no sign-up. Link in bio.
+
+## 3. TRADUZIONE
+
+Niente pronostici. Niente opinioni. Niente "partita della settimana". Ogni settimana pubblichiamo cosa hanno fatto davvero i numeri: come stanno giocando le due squadre una volta corretto per gli avversari affrontati, cosa dicono le previsioni e quanto di solito sbagliano, e quante volte partite simili sono finite in un modo o nell'altro. Poi il martedi' pubblichiamo com'e' andata. Comprese le cose che abbiamo sbagliato.
+
+## 4. CONTROLLO
+
+Sull'immagine deve esserci scritto esattamente:
+
+    KEY NUMBERS
+    NFL, COUNTED
+    @keynumbersnfl

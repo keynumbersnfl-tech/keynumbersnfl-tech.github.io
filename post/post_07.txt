@@ -1,0 +1,15 @@
+# POST 07 — Il campo di casa
+
+## 1. IMMAGINE
+Gia' pronta: immagini/post_07_casa.png
+Generata da kit/grafici_post.py. I numeri vengono dai dati: non serve verificarli.
+
+## 2. DIDASCALIA
+Home field is still worth something. It is worth noticeably less than it used to be, and almost all of the drop is recent.
+
+The small dots are single seasons. We show them on purpose: this number bounces a lot year to year, so any one season tells you close to nothing. The shift between the eras is the part that holds up.
+
+If you learned this sport ten years ago, one of the things you learned is weaker than you think it is.
+
+## 3. TRADUZIONE
+Il campo di casa vale ancora, ma meno di prima, e il calo e' recente. I puntini piccoli sono le singole stagioni: li mostriamo apposta, perche' il dato balla parecchio e una stagione sola non dice quasi niente.

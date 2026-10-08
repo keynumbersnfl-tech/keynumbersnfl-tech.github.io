@@ -1,0 +1,13 @@
+# POST 08 — Partite strette
+
+## 1. IMMAGINE
+Gia' pronta: immagini/post_08_strette.png
+Generata da kit/grafici_post.py. I numeri vengono dai dati: non serve verificarli.
+
+## 2. DIDASCALIA
+Almost half the NFL season comes down to one score.
+
+That is why a single number - the final margin - carries so much of the information, and why we build the whole report around where that number has actually landed in the past, instead of around how a game feels.
+
+## 3. TRADUZIONE
+Quasi meta' della stagione NFL si decide su un solo possesso. Per questo il margine finale porta cosi' tanta informazione.

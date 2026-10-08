@@ -1,0 +1,15 @@
+# POST 03 — Il numero 3
+
+## 1. IMMAGINE
+Gia' pronta: immagini/post_03_tre.png
+Generata da kit/grafici_post.py. I numeri vengono dai dati: non serve verificarli.
+
+## 2. DIDASCALIA
+Football scores in 3s and 7s, so final margins pile up on a few numbers and almost skip others. The single most common way an NFL game ends is a 3-point margin, and it is not close.
+
+This is why -3 and -3.5 are not the same number. On 3 the game can land exactly there. On 3.5 it never can.
+
+Every line in our weekly report is read against this shape, not against a smooth curve that pretends every margin is equally likely. Free, link in bio.
+
+## 3. TRADUZIONE
+Nel football si segna a 3 e a 7, quindi i margini finali si accumulano su pochi numeri e ne saltano quasi altri. Per questo -3 e -3.5 non sono lo stesso numero.

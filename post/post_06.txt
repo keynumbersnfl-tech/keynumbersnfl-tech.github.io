@@ -1,0 +1,15 @@
+# POST 06 — Mezzo punto
+
+## 1. IMMAGINE
+Gia' pronta: immagini/post_06_mezzopunto.png
+Generata da kit/grafici_post.py. I numeri vengono dai dati: non serve verificarli.
+
+## 2. DIDASCALIA
+When the line is exactly 3, the game ends on exactly 3 about one time in six. When the line is 3.5, it cannot happen. Not once. Not ever.
+
+Half a point. Two completely different numbers.
+
+Our weekly report counts this for every line on the board, instead of telling you a game "feels like a trap."
+
+## 3. TRADUZIONE
+Sulla linea 3 la partita puo' finire esattamente li', circa una volta su sei. Sulla 3.5 non puo' succedere mai. Mezzo punto, due numeri completamente diversi.

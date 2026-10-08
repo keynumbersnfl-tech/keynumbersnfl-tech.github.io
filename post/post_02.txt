@@ -1,0 +1,17 @@
+# POST 02 — La regola del vento
+
+## 1. IMMAGINE
+Gia' pronta: immagini/post_02_vento.png
+Generata da kit/grafici_post.py. I numeri vengono dai dati: non serve verificarli.
+
+## 2. DIDASCALIA
+Before Week 3 we wrote a rule down and published it: when the forecast says 11 mph of wind or more and the roof is open, expect fewer points.
+
+Three games qualified. All three went over.
+
+The rule goes up before the games, the count goes up after, whichever way it went. Three games prove nothing - that is exactly why the count keeps running all season and we don't get to touch it.
+
+Full week reports, free, no sign-up. Link in bio.
+
+## 3. TRADUZIONE
+Regola scritta e pubblicata prima della week 3: vento previsto da 11 mph in su e tetto aperto, aspettati meno punti. Tre partite rientravano, tutte e tre finite sopra. La regola prima, il conteggio dopo, comunque vada.
