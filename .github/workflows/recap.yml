@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: "0 15 * * 2"
   workflow_dispatch:
+    inputs:
+      forza:
+        description: "Rigenera anche se gia' pubblicato"
+        type: boolean
+        default: false
 permissions:
   contents: write
 jobs:
@@ -17,7 +22,7 @@ jobs:
           cache-dependency-path: kit/requirements.txt
       - run: pip install -r kit/requirements.txt
       - id: build
-        run: python kit/consuntivo.py | tee /tmp/out.txt
+        run: python kit/consuntivo.py ${{ inputs.forza && '--forza' || '' }} | tee /tmp/out.txt
       - name: Stop if nothing to recap
         run: grep -qE "No completed week|is not finished yet|No snapshot|already published" /tmp/out.txt && echo "SKIP=1" >> $GITHUB_ENV || true
       - if: env.SKIP != '1'

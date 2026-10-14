@@ -37,8 +37,9 @@ def tabella(testate, righe):
 sch = nfl.load_schedules([STAGIONE]).to_pandas()
 reg = sch[sch.game_type == "REG"].copy()
 
-if len(sys.argv) > 1:
-    week = int(sys.argv[1])
+_num = [a for a in sys.argv[1:] if a.isdigit()]
+if _num:
+    week = int(_num[0])
 else:
     fatte = [int(w) for w, g in reg.groupby("week") if g.result.notna().all()]
     con_foto = [w for w in sorted(fatte, reverse=True) if prima_foto(w)]
