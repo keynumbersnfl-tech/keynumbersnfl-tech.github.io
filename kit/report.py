@@ -372,24 +372,35 @@ print(f"Report week {week}: {len(sezioni)} games")
 print("Saved to:", dest)
 
 # ------------------------------------------------------------ post Instagram della partita
-def _ordinale(n):
+import json as _json
+
+def _ord(n):
     n = int(n)
     if 10 <= n % 100 <= 20:
         return f"{n}th"
     return f"{n}{ {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th') }"
 
-def _linea_corta(r):
-    s = r.spread_line
+def _linea_corta(x):
+    s = x.spread_line
     if pd.isna(s):
         return "no line yet"
     if s > 0:
-        return f"{r.home_team} -{s:g}"
+        return f"{x.home_team} -{s:g}"
     if s < 0:
-        return f"{r.away_team} -{-s:g}"
+        return f"{x.away_team} -{-s:g}"
     return "pick'em"
 
-def _tot(r):
-    return f"{r.total_line:g}" if pd.notna(r.total_line) else "not posted"
+def _tot(x):
+    return f"{x.total_line:g}" if pd.notna(x.total_line) else "not posted"
+
+def _registro():
+    p = os.path.join(percorsi.DATI, "consuntivo.csv")
+    if not os.path.exists(p):
+        return None
+    reg = pd.read_csv(p)
+    v = reg[reg.vento_reg == 1]
+    o = v.ou[v.ou.isin(["over", "under"])]
+    return (int((o == "under").sum()), len(o)) if len(o) else None
 
 try:
     cond = w.regola_cond if "regola_cond" in w.columns else pd.Series(False, index=w.index)
@@ -402,85 +413,73 @@ try:
         r = vent.loc[vent.vento_prev.idxmax()]
         v = r.vento_prev
         a = vento_prev[((vento_prev.v_prev - v).abs() <= 3) & (vento_prev.res != 0)]
-        vivo = ""
-        _lg = os.path.join(percorsi.DATI, "consuntivo.csv")
-        if os.path.exists(_lg):
-            _L = pd.read_csv(_lg)
-            _v = _L[_L.vento_reg == 1]
-            _o = _v.ou[_v.ou.isin(["over", "under"])]
-            if len(_o):
-                vivo = (f"\n\nOur own count, live, since we wrote the rule down: "
-                        f"{int((_o == 'under').sum())} of {len(_o)} under. "
-                        f"We publish that one whichever way it goes.")
+        sotto, nn = int((a.res < 0).sum()), len(a)
+        cop_num, cop_lab = f"{v:.0f} mph", "FORECAST WIND, ROOF OPEN"
+        righe = [["Similar wind 2021-2025: under", f"{sotto} of {nn}",
+                  (sotto / nn) if nn else None]]
+        reg = _registro()
+        if reg:
+            righe.append(["Our live count since the rule", f"{reg[0]} of {reg[1]}",
+                          reg[0] / reg[1]])
         corpo = (f"The forecast says {v:.0f} mph, roof open.\n\n"
-                 f"Outdoor games with wind in that range, 2021-2025: "
-                 f"{int((a.res < 0).sum())} of {len(a)} finished under their own total."
-                 f"{vivo}\n\n"
-                 f"The line: {_linea_corta(r)}. The total: {_tot(r)}.")
+                 f"Outdoor games with wind in that range, 2021-2025: {sotto} of {nn} "
+                 f"finished under their own total.")
+        if reg:
+            corpo += (f"\n\nOur own count, live, since we wrote the rule down: "
+                      f"{reg[0]} of {reg[1]} under. We publish that one whichever way it goes.")
+        corpo += f"\n\nThe line: {_linea_corta(r)}. The total: {_tot(r)}."
+
     elif not tre.empty or not sette.empty:
         r = (tre if not tre.empty else sette).iloc[0]
-        L = abs(r.spread_line)
-        x = sim_sp[(sim_sp.spread_line.abs() - L).abs() <= 0.5]
+        LL = abs(r.spread_line)
+        x = sim_sp[(sim_sp.spread_line.abs() - LL).abs() <= 0.5]
         fm = np.where(x.spread_line > 0, x.result, -x.result)
-        ph = pmf_casa(B, r.spread_line)
-        corpo = (f"The line is exactly {L:g}, and that is worth more than the half point next to it.\n\n"
-                 f"Games from {ANNI_SIMILI[0]}-{ANNI_SIMILI[1]} with the favorite laying "
-                 f"{max(L - 0.5, 0):g} to {L + 0.5:g} points: the favorite won by exactly {L:g} in "
-                 f"{int((fm == L).sum())} of {len(x)}.\n\n"
-                 f"On {L:g} the game can land there. On {L + 0.5:g} it never can.\n\n"
-                 f"The total: {_tot(r)}.")
+        es, nn = int((fm == LL).sum()), len(x)
+        vinte = int((fm > 0).sum())
+        cop_num, cop_lab = _linea_corta(r), "THE LINE SITS ON A KEY NUMBER"
+        righe = [[f"Favorite won by exactly {LL:g}", f"{es} of {nn}", es / nn if nn else None],
+                 ["Favorite won the game", f"{vinte} of {nn}", vinte / nn if nn else None]]
+        corpo = (f"The line is exactly {LL:g}, and that is worth more than the half point "
+                 f"next to it.\n\nGames from {ANNI_SIMILI[0]}-{ANNI_SIMILI[1]} with the "
+                 f"favorite laying {max(LL - 0.5, 0):g} to {LL + 0.5:g} points: the favorite "
+                 f"won by exactly {LL:g} in {es} of {nn}.\n\nOn {LL:g} the game can land "
+                 f"there. On {LL + 0.5:g} it never can.\n\nThe total: {_tot(r)}.")
+
     else:
         rk = off26.epa.rank(ascending=False, method="min")
         cand = []
-        for t in set(w.home_team) | set(w.away_team):
-            if t in rk.index and RAT is not None and t in RAT.index:
-                g, b = int(rk[t]), int(RAT.off_rank[t])
-                cand.append((abs(g - b), t, g, b))
+        for sq in set(w.home_team) | set(w.away_team):
+            if sq in rk.index and RAT is not None and sq in RAT.index:
+                g1, b1 = int(rk[sq]), int(RAT.off_rank[sq])
+                cand.append((abs(g1 - b1), sq, g1, b1))
         if not cand:
             raise RuntimeError("nessun dato per il terzo gancio")
         cand.sort(reverse=True)
-        gap, t, g, b = cand[0]
-        r = w[(w.home_team == t) | (w.away_team == t)].iloc[0]
-        corpo = (f"{t}'s offense ranks {_ordinale(g)} in raw EPA per play this season.\n"
-                 f"Adjusted for the defenses they have actually faced: {_ordinale(b)}.\n\n"
-                 f"{gap} places. That gap is schedule, not performance, and it is the single thing "
-                 f"most likely to be mispriced in your head when you look at this game.\n\n"
-                 f"The line: {_linea_corta(r)}. The total: {_tot(r)}.")
+        gap, sq, g1, b1 = cand[0]
+        r = w[(w.home_team == sq) | (w.away_team == sq)].iloc[0]
+        cop_num, cop_lab = f"{_ord(g1)} to {_ord(b1)}", f"{sq} OFFENSE, ONCE YOU ADJUST"
+        righe = [[f"{sq} offense, raw EPA per play", _ord(g1), None],
+                 [f"{sq} offense, adjusted for opponents", _ord(b1), None]]
+        corpo = (f"{sq}'s offense ranks {_ord(g1)} in raw EPA per play this season.\n"
+                 f"Adjusted for the defenses they have actually faced: {_ord(b1)}.\n\n"
+                 f"{gap} places. That gap is schedule, not performance, and it is the single "
+                 f"thing most likely to be mispriced in your head when you look at this "
+                 f"game.\n\nThe line: {_linea_corta(r)}. The total: {_tot(r)}.")
 
-    k = r.kick
-    orario = f"{DAYS[k.weekday()]} {k.strftime('%I:%M %p').lstrip('0')} ET"
+    kk = r.kick
+    orario = f"{DAYS[kk.weekday()]} {kk.strftime('%I:%M %p').lstrip('0')} ET"
     titolo = f"{r.away_team} at {r.home_team}"
-
-    testa = (f"POST DELLA PARTITA — WEEK {week}\n\n"
-             f"Messaggio 2 = prompt per ChatGPT.  Messaggio 3 = didascalia per Instagram.\n\n"
-             f"CONTROLLO: sull'immagine deve esserci scritto esattamente\n"
-             f"  {titolo}\n  WEEK {week}\n  @keynumbersnfl")
-
-    prompt = f"""Generate an image. Size 1080x1350, vertical.
-
-A dark, cinematic NFL stadium at dusk under floodlights, heavily darkened and desaturated so it works as a textured background rather than a photograph. Deep charcoal blacks, one warm amber light source low in the frame. No logos, no team names, no recognizable faces, no jersey numbers, no brands.
-
-Centred, in very large bold condensed white sans-serif filling about half the image width:
-
-{titolo}
-
-Directly beneath it, small, uppercase, grey, widely letter-spaced:
-
-WEEK {week}
-
-At the bottom centre, small but clearly readable:
-
-@keynumbersnfl
-
-Generous empty space around the text. Nothing else anywhere on the image. Render the text exactly as written, character for character."""
-
     didascalia = (f"{titolo}, {orario}.\n\n{corpo}\n\n"
                   f"The other {len(w) - 1} games of Week {week} are in the full report. "
                   f"Free, link in bio.")
 
-    dp = os.path.join(percorsi.DATI, "post_partita.txt")
-    with open(dp, "w", encoding="utf-8") as f:
-        f.write(f"{testa}\n@@@\n{prompt}\n@@@\n{didascalia}\n")
-    print("Testo del post partita salvato:", dp)
+    dati = {"week": week, "titolo": titolo, "orario": orario,
+            "cop_num": cop_num, "cop_lab": cop_lab,
+            "linea": _linea_corta(r), "totale": _tot(r),
+            "righe": righe, "didascalia": didascalia}
+    dp = os.path.join(percorsi.DATI, "post_partita.json")
+    with open(dp, "w", encoding="utf-8") as fh:
+        _json.dump(dati, fh, ensure_ascii=False, indent=1)
+    print("Dati del post partita salvati:", dp)
 except Exception as ex:
     print("Post partita non generato:", repr(ex))
