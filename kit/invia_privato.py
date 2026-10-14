@@ -25,8 +25,23 @@ token, chat = credenziali()
 testo = open(sys.argv[1], encoding="utf-8").read()
 parti = [p.strip() for p in testo.split("\n@@@\n") if p.strip()]
 
+def manda_file(percorso):
+    with open(percorso, "rb") as fh:
+        return requests.post(f"https://api.telegram.org/bot{token}/sendDocument",
+                             timeout=120, data={"chat_id": chat},
+                             files={"document": (os.path.basename(percorso), fh)}).json()
+
 inviate = 0
 for p in parti:
+    if p.startswith("@@IMG:"):
+        perc = p[6:].strip()
+        if not os.path.exists(perc):
+            print("immagine assente:", perc); continue
+        r = manda_file(perc)
+        if not r.get("ok"):
+            print("Errore:", r); sys.exit(1)
+        inviate += 1
+        continue
     for i in range(0, len(p), LIMITE):
         r = requests.post(f"https://api.telegram.org/bot{token}/sendMessage", timeout=20,
                           json={"chat_id": chat, "text": p[i:i + LIMITE],
