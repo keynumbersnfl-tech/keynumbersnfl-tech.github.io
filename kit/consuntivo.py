@@ -15,9 +15,15 @@ DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 e = html.escape
 
 def prima_foto(week):
+    """La fotografia piu' vecchia che ha davvero le linee: quella del report pubblicato.
+    Le fotografie fatte troppo presto non hanno ancora spread e totale."""
     f = sorted(glob.glob(os.path.join(percorsi.DATI, "snapshot",
                                       f"{STAGIONE}_w{week:02d}_*.parquet")))
-    return f[0] if f else None
+    for p in f:
+        x = pd.read_parquet(p)
+        if "spread_line" in x.columns and x.spread_line.notna().mean() >= 0.8:
+            return p
+    return None
 
 def su(n, d):
     return f"{int(n)} of {int(d)}" if d else "none"
